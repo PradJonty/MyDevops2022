@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+		
+		<tx:annotation-driven transaction-manager="tm"/>
+    
+    <bean id="carService" class="valtechspring.tx.CarServiceImpl" autowire="byType"></bean>
+    
+    <bean class="valtechspring.spring.orm.CarHibernateDAOImpl" autowire="byType"></bean>
+        
+        <bean id="tm" class="org.springframework.orm.hibernate3.HibernateTransactionManager" autowire="byType"></bean>
+		
+		<bean class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+<property name="dataSource" ref="ds"></property>
+<property name="hibernateProperties">
+        <props>
+        <prop key="hibernate.dialect" >org.hibernate.dialect.OracleDialect</prop>
+        <prop key="hibernate.show_sql">true</prop>
+        </props>
+        </property>
+        <!-- <property name="PackagesToScan" value="valtechspring.orm"></property> -->
+
+
+<property name="annotatedClasses">
+<list>
+     <!--   <value>valtechspring.orm.Account</value>-->
+       <value>valtechspring.orm.Address</value>
+       <value>valtechspring.orm.AtmTx</value>
+        <value>valtechspring.orm.BankAccount</value>
+       <value>valtechspring.orm.Car</value>
+        <value>valtechspring.orm.ChequeTx</value>
+        <value>valtechspring.orm.Customer</value>
+        <value>valtechspring.orm.TellerTx</value>
+        <value>valtechspring.orm.Tx</value>
+        <value>valtechspring.orm.BankAccountId</value>
+       <!-- <value>valtechspring.orm.CarDetails</value>-->
+</list>
+</property>
+</bean>
+
+
+  <bean id="ds"
+ class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+  <property name="driverClassName" value="oracle.jdbc.OracleDriver"></property>
+  <property name="username" value="valtrg21"></property>
+  <property name="password" value="valtrg21"></property>
+  <property name="url" value="jdbc:oracle:thin:@192.168.102.38:1521/xe "></property>
+</bean>
+
+		
+</beans>

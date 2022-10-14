@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+default-autowire="byType"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+<bean id="dontCallMeDirectly" abstract="true" class="valtechspring.ioc.Point"></bean>
+<bean id="CallMe" abstract="true" parent="dontCallMeDirectly"></bean>
+
+<bean id="cp" class="valtechspring.ioc.Point">
+        <constructor-arg index="0" value="120"></constructor-arg>
+        <constructor-arg index="1" value="130"></constructor-arg>
+</bean>
+
+
+<bean id="pointFromFactory" factory-bean="pf" factory-method="createPoint">
+      <constructor-arg value="120"></constructor-arg>
+      <property name="y" value="1000"></property>
+</bean>
+
+<bean id="pf" class="valtechspring.ioc.PointFactory" autowire="byName"></bean>
+<bean id="live1" class="valtechspring.ioc.Live" autowire="byName"></bean>
+
+<bean id="live" class="valtechspring.ioc.Live">
+<property name="start" ref="start"></property>
+<property name="end" ref="end"></property>
+</bean>
+
+<bean id="start" class="valtechspring.ioc.Point">
+<property name="x" value="100"></property>
+<property name="y" value="200"></property>
+</bean>
+
+<bean id="p1.p2.end" class="valtechspring.ioc.Point" scope="prototype">
+<property name="x" value="10"></property>
+<property name="y">
+<value type="int">20</value>
+</property>
+</bean>
+</beans

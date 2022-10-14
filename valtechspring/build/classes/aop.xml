@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	
+    
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+	
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id ="TimerAdvice" class="valtechspring.aop.TimerAdvice">
+	</bean>
+	
+<bean id ="LogAfterAdvice" class="valtechspring.aop.LogAfterAdvice">
+</bean>
+<bean id="counterAdvice" class="valtechspring.aop.CounterAdvice">
+
+</bean>
+
+
+<bean id ="arithmetic" class="org.springframework.aop.framework.ProxyFactoryBean">
+<property name="target">
+<bean  class="valtechspring.aop.ArithmeticImpl"></bean>
+    
+</property>
+
+<property name = "interceptorNames">
+<list>
+<value>TimerAdvice</value>
+   <value>counterAdvice</value>
+   <value>LogAfterAdvice</value>
+</list>
+</property>
+
+
+<property name="optimize" value="true"></property>
+</bean>
+ <bean  class="valtechspring.aop.ArithmeticImpl"></bean>
+    
+    <bean id="si" class="valtechspring.aop.SimpleInterestImpl"></bean>
+    
+    
+
+</beans>
